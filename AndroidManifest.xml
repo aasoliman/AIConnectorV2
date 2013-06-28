@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="cgu.edu.ist380.solimana.project.v2.FullImageActivity"
+            android:label="@string/title_activity_main" >
+            
+        </activity>
     </application>
 
 </manifest>

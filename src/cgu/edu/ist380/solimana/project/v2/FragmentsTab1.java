@@ -37,13 +37,13 @@ public class FragmentsTab1 extends Fragment implements ActionBar.TabListener {
 				
 				Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_SHORT).show();
 				
-			/*	
+			
 				// Sending image id to FullImageActivity
-				Intent i = new Intent(v.getContext(), FullImageActivity.class);
+				Intent i = new Intent(getActivity().getApplicationContext(), FullImageActivity.class);
 				// passing array index
 				i.putExtra("id", position);
 				startActivity(i);
-				*/
+				
 			}
 		});
 	    return view;
