@@ -14,11 +14,9 @@ public class ImageAdapter extends BaseAdapter {
 	
 	// Keep all Images in array
 	public Integer[] mThumbIds = {			
-			R.drawable.one, R.drawable.two,
-			R.drawable.three, R.drawable.four,
-			R.drawable.five, R.drawable.six,
-			R.drawable.seven, R.drawable.eight,
-			R.drawable.nine, R.drawable.ten,			
+			R.drawable.apple, R.drawable.cheesesandwich,
+			R.drawable.oranges, R.drawable.macncheese,
+			R.drawable.pizza, R.drawable.spagnmeatballs,			
 	};
 	
 	// Constructor

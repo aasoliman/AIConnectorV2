@@ -1,5 +1,7 @@
 package cgu.edu.ist380.solimana.project.v2;
 
+import com.androidbegin.fragmenttabs.R;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
@@ -28,13 +30,15 @@ public class MainActivity extends Activity {
 		tab = actionBar.newTab().setTabListener(new FragmentsTab1());
 		// Create your own custom icon
 		//tab.setIcon(R.drawable.tab1);
-		tab.setText("Food");		
+		tab.setText("Food");	
+		tab.setIcon(R.drawable.pizza);
 		actionBar.addTab(tab);
 
 		// Create Second Tab
 		tab = actionBar.newTab().setTabListener(new FragmentsTab2());
 		// Set Tab Title
 		tab.setText("Activities");
+		tab.setIcon(R.drawable.videogames);
 		actionBar.addTab(tab);
 
 		// Create Third Tab
