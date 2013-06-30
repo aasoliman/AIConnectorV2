@@ -19,9 +19,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,91 +39,109 @@ public class FragmentsTab3 extends Fragment implements ActionBar.TabListener {
 	//String FILENAME = "password.txt";
 	public String text;
 	
+	//I am not sure this will work or not
+	//Also should I cast the type to RelativeLayout?
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        if (container == null) {
+            // We have different layouts, and in one of them this
+            // fragment's containing frame doesn't exist.  The fragment
+            // may still be created from its saved state, but there is
+            // no reason to try to create its view hierarchy because it
+            // won't be displayed.  Note this is not needed -- we could
+            // just run the code below, where we would create and return
+            // the view hierarchy; it would just never be used.
+        	// set the buttons
+    		Write = (Button) getView().findViewById(R.id.btw);
+    		Write.setOnClickListener(new OnClickListener() {
+    	        public void onClick(View v) {
+    	            // here you set what you want to do when user clicks your button,
+    	            // e.g. launch a new activity
+    	        	if (!Environment.MEDIA_MOUNTED.equals(Environment
+    	    				.getExternalStorageState())) {
+    	    			Toast.makeText(getView().getContext(), "External SD card not mounted",
+    	    					Toast.LENGTH_LONG).show();
+    	    		} else {
+    	    			try {
+    	    				if (v == Write) {
+    	    					PackageManager m = getView().getContext().getPackageManager();
+    	    					String s = getView().getContext().getPackageName();
+    	    					PackageInfo p = m.getPackageInfo(s, 0);
+    	    					s = p.applicationInfo.dataDir;
+    	    					File myFile = new File(s + "/password.txt");
+    	    					myFile.createNewFile();
+    	    					FileOutputStream fOut = new FileOutputStream(myFile);
+    	    					OutputStreamWriter myOutWriter = new OutputStreamWriter(
+    	    							fOut);
+    	    					myOutWriter.append(TxtS.getText());
+    	    					myOutWriter.close();
+    	    					fOut.close();
+    	    					Toast.makeText(getView().getContext(),
+    	    							"Text Updated",
+    	    							Toast.LENGTH_SHORT).show();
+    	    				}} catch (Exception e) {
+    	    					Toast.makeText(getView().getContext(), e.getMessage(),
+    	    							Toast.LENGTH_SHORT).show();
+    	    				}}
+    	    			}	    			    	      
+    	    });
+    		Read = (Button) getView().findViewById(R.id.btr);
+    		Read.setOnClickListener(new OnClickListener() {
+    	        private BufferedReader myReader;
+
+    			public void onClick(View v) {
+    	        	if (!Environment.MEDIA_MOUNTED.equals(Environment
+    	    				.getExternalStorageState())) {
+    	    			Toast.makeText(getView().getContext(), "External SD card not mounted",
+    	    					Toast.LENGTH_LONG).show();
+    	    		} else {
+    	    			if (v == Read) {
+
+    	    				try {
+    	    					PackageManager m = getView().getContext().getPackageManager();
+    	    					String s = getView().getContext().getPackageName();
+    	    					PackageInfo p = m.getPackageInfo(s, 0);
+    	    					s = p.applicationInfo.dataDir;
+    	    					File myFile = new File(s + "/MyDoople.txt");
+
+    	    					FileInputStream fIn = new FileInputStream(myFile);
+    	    					myReader = new BufferedReader(
+    	    							new InputStreamReader(fIn));
+    	    					String aDataRow = "";
+    	    					String aBuffer = "";
+
+    	    					while ((aDataRow = myReader.readLine()) != null) {
+    	    						aBuffer += aDataRow;
+
+    	    						// byte buffer into a string
+    	    						text = new String(aBuffer);
+
+    	    						Txt.setText(text);
+
+    	    					}}
+    	    					catch (Exception e) {
+    	    						Toast.makeText(getView().getContext(), e.getMessage(),
+    		    							Toast.LENGTH_SHORT).show();
+    	    					
+    	    				}}
+    	    				}
+    	        	
+    	        }
+    			}
+    		);
+    	        
+    		Txt = (TextView) getView().findViewById(R.id.txtv);
+    		TxtS=(EditText) getView().findViewById(R.id.txtS);
+            return null;
+        }
+        return inflater.inflate(R.layout.fragment3, container, false);
+    }
+    
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// set the buttons
-		Write = (Button) getView().findViewById(R.id.btw);
-		Write.setOnClickListener(new OnClickListener() {
-	        public void onClick(View v) {
-	            // here you set what you want to do when user clicks your button,
-	            // e.g. launch a new activity
-	        	if (!Environment.MEDIA_MOUNTED.equals(Environment
-	    				.getExternalStorageState())) {
-	    			Toast.makeText(getView().getContext(), "External SD card not mounted",
-	    					Toast.LENGTH_LONG).show();
-	    		} else {
-	    			try {
-	    				if (v == Write) {
-	    					PackageManager m = getView().getContext().getPackageManager();
-	    					String s = getView().getContext().getPackageName();
-	    					PackageInfo p = m.getPackageInfo(s, 0);
-	    					s = p.applicationInfo.dataDir;
-	    					File myFile = new File(s + "/password.txt");
-	    					myFile.createNewFile();
-	    					FileOutputStream fOut = new FileOutputStream(myFile);
-	    					OutputStreamWriter myOutWriter = new OutputStreamWriter(
-	    							fOut);
-	    					myOutWriter.append(TxtS.getText());
-	    					myOutWriter.close();
-	    					fOut.close();
-	    					Toast.makeText(getView().getContext(),
-	    							"Text Updated",
-	    							Toast.LENGTH_SHORT).show();
-	    				}} catch (Exception e) {
-	    					Toast.makeText(getView().getContext(), e.getMessage(),
-	    							Toast.LENGTH_SHORT).show();
-	    				}}
-	    			}	    			    	      
-	    });
-		Read = (Button) getView().findViewById(R.id.btr);
-		Read.setOnClickListener(new OnClickListener() {
-	        private BufferedReader myReader;
-
-			public void onClick(View v) {
-	        	if (!Environment.MEDIA_MOUNTED.equals(Environment
-	    				.getExternalStorageState())) {
-	    			Toast.makeText(getView().getContext(), "External SD card not mounted",
-	    					Toast.LENGTH_LONG).show();
-	    		} else {
-	    			if (v == Read) {
-
-	    				try {
-	    					PackageManager m = getView().getContext().getPackageManager();
-	    					String s = getView().getContext().getPackageName();
-	    					PackageInfo p = m.getPackageInfo(s, 0);
-	    					s = p.applicationInfo.dataDir;
-	    					File myFile = new File(s + "/MyDoople.txt");
-
-	    					FileInputStream fIn = new FileInputStream(myFile);
-	    					myReader = new BufferedReader(
-	    							new InputStreamReader(fIn));
-	    					String aDataRow = "";
-	    					String aBuffer = "";
-
-	    					while ((aDataRow = myReader.readLine()) != null) {
-	    						aBuffer += aDataRow;
-
-	    						// byte buffer into a string
-	    						text = new String(aBuffer);
-
-	    						Txt.setText(text);
-
-	    					}}
-	    					catch (Exception e) {
-	    						Toast.makeText(getView().getContext(), e.getMessage(),
-		    							Toast.LENGTH_SHORT).show();
-	    					
-	    				}}
-	    				}
-	        	
-	        }
-			}
-		);
-	        
-		Txt = (TextView) getView().findViewById(R.id.txtv);
-		TxtS=(EditText) getView().findViewById(R.id.txtS);
+		
 		// Get the view from fragment3.xml
 		getActivity().setContentView(R.layout.fragment3);
 
