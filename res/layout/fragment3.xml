@@ -1,8 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    
+    <EditText
+        android:id="@+id/txtS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtS"
+        android:layout_alignBottom="@+id/txtS"
+        android:layout_toRightOf="@+id/txtS"
+        android:text="Write" />
+
+    <Button
+        android:id="@+id/btr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btw"
+        android:layout_toRightOf="@+id/txtS"
+        android:text="Read" />
+
+    <TextView
+        android:id="@+id/txtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btr"
+        android:layout_alignBottom="@+id/btr"
+        android:layout_alignParentLeft="true"
+        android:text="Password File"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
 </RelativeLayout>
