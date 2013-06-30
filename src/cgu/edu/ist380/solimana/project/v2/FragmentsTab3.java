@@ -40,8 +40,7 @@ public class FragmentsTab3 extends Fragment implements ActionBar.TabListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Get the view from fragment3.xml
-		getActivity().setContentView(R.layout.fragment3);
+		
 		// set the buttons
 		Write = (Button) getView().findViewById(R.id.btw);
 		Write.setOnClickListener(new OnClickListener() {
@@ -116,12 +115,16 @@ public class FragmentsTab3 extends Fragment implements ActionBar.TabListener {
 	    					
 	    				}}
 	    				}
-	        }});
+	        	
+	        }
+			}
+		);
 	        
 		Txt = (TextView) getView().findViewById(R.id.txtv);
 		TxtS=(EditText) getView().findViewById(R.id.txtS);
-	
+		// Get the view from fragment3.xml
 		getActivity().setContentView(R.layout.fragment3);
+
 	}
 
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
